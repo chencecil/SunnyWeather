@@ -1,0 +1,14 @@
+package com.sunnyweather.android.logic.network
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object WeatherServiceCreator {
+    private const val WEATHER_BASE_URL = "https://devapi.qweather.com/"
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(WEATHER_BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
+    inline fun <reified T> create(): T = create(T::class.java)
+}
